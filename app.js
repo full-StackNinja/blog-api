@@ -3,6 +3,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+ const mongoose = require("mongoose");
+const multer = require("multer");
+
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -11,15 +15,25 @@ const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 
 app.use(logger("dev"));
 app.use(express.json());
+app.use(multer().none());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+const main = async () => {
+   await mongoose.connect(process.env.MONGODB_URI);
+   console.log("Connected to the database!");
+};
+
+main().catch((err) => {
+   next(err);
+});
+
+app.use("/api", indexRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
