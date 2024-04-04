@@ -3,10 +3,9 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
- const mongoose = require("mongoose");
 const multer = require("multer");
 
-require("dotenv").config();
+require("./mongoConfig");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -23,15 +22,6 @@ app.use(multer().none());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-const main = async () => {
-   await mongoose.connect(process.env.MONGODB_URI);
-   console.log("Connected to the database!");
-};
-
-main().catch((err) => {
-   next(err);
-});
 
 app.use("/api", indexRouter);
 app.use("/users", usersRouter);
