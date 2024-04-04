@@ -86,7 +86,7 @@ exports.author_login_post = [
       if (!author)
          return res.status(400).json({
             success: false,
-            message: "Author not found",
+            message: "Incorrect email address",
          });
       if (await bcrypt.compare(req.body.password, author.password)) {
          const token = jwt.sign(
@@ -104,7 +104,7 @@ exports.author_login_post = [
 
       return res.status(400).json({
          success: false,
-         message: "Email or password is incorrect",
+         message: "Incorrect password",
       });
    }),
 ];
