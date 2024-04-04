@@ -3,6 +3,7 @@
    "version": "0.0.0",
    "private": true,
    "scripts": {
+      "test": "mocha ./__tests__/**/*.test.js",
       "start": "node ./bin/www",
       "build": "nodemon start",
       "serverstart": "DEBUG=blog-api:* npm run build"
@@ -18,12 +19,16 @@
       "http-errors": "~1.6.3",
       "jade": "~1.11.0",
       "jsonwebtoken": "^9.0.2",
+      "mocha": "^10.4.0",
       "mongoose": "^8.2.2",
       "morgan": "~1.9.1",
       "multer": "^1.4.5-lts.1",
-      "pug": "^3.0.2"
+      "pug": "^3.0.2",
+      "supertest": "^6.3.4"
    },
    "devDependencies": {
+      "chai": "^5.1.0",
+      "mongodb-memory-server": "^9.1.8",
       "nodemon": "^3.1.0"
    }
 }
